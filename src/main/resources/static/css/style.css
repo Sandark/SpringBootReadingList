@@ -1,0 +1,32 @@
+body {
+    background-color: #cccccc;
+    font-family: Arial,Helvetica,sans-serif;
+    align-content: center;
+    width: 800px;
+}
+
+.bookHeadline {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.bookDescription {
+    font-size: 10pt;
+}
+
+label {
+    display: inline-block;
+    font-weight: bold;
+}
+
+input {
+    float: right;
+}
+
+form {
+    line-height: 2em;
+}
+
+textarea {
+    float: right;
+}
