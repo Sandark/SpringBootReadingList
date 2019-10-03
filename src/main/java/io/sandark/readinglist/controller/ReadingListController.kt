@@ -1,6 +1,7 @@
 package io.sandark.readinglist.controller
 
 import io.sandark.readinglist.dao.ReadingListRepository
+import io.sandark.readinglist.dao.UserRepository
 import io.sandark.readinglist.entity.Book
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
 @RequestMapping("/")
-class ReadingListController @Autowired constructor(var readingListRepository: ReadingListRepository) {
+class ReadingListController @Autowired constructor(var readingListRepository: ReadingListRepository,
+                                                   var userRepository: UserRepository) {
 
     @RequestMapping("/{reader}", method = [RequestMethod.GET])
     fun readersBooks(@PathVariable("reader") reader: String, model: Model): String {
@@ -25,7 +27,8 @@ class ReadingListController @Autowired constructor(var readingListRepository: Re
 
     @RequestMapping("/{reader}", method = [RequestMethod.POST])
     fun addToReadingList(@PathVariable("reader") reader: String, book: Book): String {
-        book.reader = reader
+        val user = userRepository.findUserByUsername(reader)
+        book.reader = user
         readingListRepository.save(book)
         return "redirect:/{reader}"
     }

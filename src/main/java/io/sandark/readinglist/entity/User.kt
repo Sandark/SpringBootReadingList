@@ -1,4 +1,4 @@
-package io.sandark.readinglist.dto
+package io.sandark.readinglist.entity
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

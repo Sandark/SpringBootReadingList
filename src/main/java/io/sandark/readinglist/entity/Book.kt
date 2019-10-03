@@ -1,6 +1,5 @@
 package io.sandark.readinglist.entity
 
-import io.sandark.readinglist.dto.User
 import javax.persistence.*
 
 @Entity
