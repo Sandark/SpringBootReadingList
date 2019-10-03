@@ -1,9 +1,7 @@
 package io.sandark.readinglist.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import io.sandark.readinglist.dto.User
+import javax.persistence.*
 
 @Entity
 data class Book(
@@ -12,6 +10,6 @@ data class Book(
         var author: String? = null,
         var isbn: String? = null,
         var description: String? = null,
-        var reader: String? = null
+        @ManyToOne var reader: User? = null
         )
 
