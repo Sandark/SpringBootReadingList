@@ -18,7 +18,8 @@ class ReadingListController @Autowired constructor(var readingListRepository: Re
     @RequestMapping("/{reader}", method = [RequestMethod.GET])
     fun readersBooks(@PathVariable("reader") reader: String, model: Model): String {
 
-        val readingList: List<Book>? = readingListRepository.findByReader(reader)
+        val user = userRepository.findUserByUsername(reader)
+        val readingList: List<Book>? = user.map { u -> readingListRepository.findByReader(u) }.orElse(null)
         if (readingList != null) {
             model.addAttribute("books", readingList)
         }
@@ -28,7 +29,7 @@ class ReadingListController @Autowired constructor(var readingListRepository: Re
     @RequestMapping("/{reader}", method = [RequestMethod.POST])
     fun addToReadingList(@PathVariable("reader") reader: String, book: Book): String {
         val user = userRepository.findUserByUsername(reader)
-        book.reader = user
+        user.ifPresent { u -> book.reader = u }
         readingListRepository.save(book)
         return "redirect:/{reader}"
     }
